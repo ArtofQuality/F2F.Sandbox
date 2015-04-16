@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/ArtofQuality/F2F.Sandbox/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ArtofQuality/F2F.Sandbox</projectUrl>
+    <iconUrl>http://www.art-of-quality.de/aoq_32x32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <summary>File sandbox for integration tests</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2015 Art of Quality GmbH</copyright>
+    <tags>aoq f2f file sandbox</tags>
+  </metadata>
+</package>
