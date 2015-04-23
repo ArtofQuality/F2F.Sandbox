@@ -36,6 +36,7 @@ namespace F2F.Sandbox
 		/// </summary>
 		public IEnumerable<string> EnumeratePath(string path)
 		{
+			if (!String.IsNullOrEmpty(path) && path[0].Equals('.')) path = path.TrimStart('.');
 			string resourceName = GetFullResourceName(path);
 
 			// TODO Replace this with LINQ when > .NET 2.0
@@ -45,7 +46,12 @@ namespace F2F.Sandbox
 			{
 				if (name.StartsWith(resourceName))
 				{
-					result.Add(name);
+					var resourceFile = GetPathFromResource(name);
+					var normalizedDirectoryPath = NormalizeDirectoryPath(path);
+					if (!String.IsNullOrEmpty(resourceFile) && resourceFile.StartsWith(normalizedDirectoryPath))
+					{
+						result.Add(resourceFile);
+					}
 				}
 			}
 
@@ -73,6 +79,36 @@ namespace F2F.Sandbox
 			return fullResourceName;
 		}
 
+		private string GetPathFromResource(string resourceName)
+		{
+			string path = String.Empty;
+
+			resourceName = resourceName.Replace(_namespace + ".", "");
+
+			if (!resourceName.Equals("Properties.Resources.resources"))
+			{
+				path = ReplaceLast(resourceName, ".", "^");
+				path = path.Replace('.', '\\');
+				path = path.Replace('^', '.');
+			}
+
+			return path;
+		}
+
+		private string NormalizeDirectoryPath(string path)
+		{
+			string result = String.Empty;
+			if (!String.IsNullOrEmpty(path))
+			{
+				result = path.Replace('/', Path.DirectorySeparatorChar);
+				if (result[result.Length - 1] != Path.DirectorySeparatorChar)
+				{
+					result = String.Format("{0}{1}", result, Path.DirectorySeparatorChar);
+				}
+			}
+			return result;
+		}
+
 		private static void CopyTo(Stream input, Stream output)
 		{
 			byte[] buffer = new byte[32768];
@@ -81,6 +117,16 @@ namespace F2F.Sandbox
 			{
 				output.Write(buffer, 0, read);
 			}
+		}
+
+		private static string ReplaceLast(string text, string search, string replace)
+		{
+			int pos = text.LastIndexOf(search);
+			if (pos < 0)
+			{
+				return text;
+			}
+			return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
 		}
 	}
 }

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("F2F.Testing.Sandbox")]
+[assembly: AssemblyTitle("F2F.Sandbox")]
 [assembly: AssemblyDescription("Provide a temporary directory and deploy files from Assembly Resources or Network Share with automatic cleanup after each test. Improved for parallel integration tests.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Art of Quality GmbH")]
-[assembly: AssemblyProduct("F2F.Testing.Sandbox")]
+[assembly: AssemblyProduct("F2F.Sandbox")]
 [assembly: AssemblyCopyright("Copyright 2015 Art of Quality GmbH")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

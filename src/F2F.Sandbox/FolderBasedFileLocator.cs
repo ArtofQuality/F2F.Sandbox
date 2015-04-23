@@ -39,6 +39,8 @@ namespace F2F.Sandbox
 		/// </summary>
 		public IEnumerable<string> EnumeratePath(string path)
 		{
+			path = path.Replace('/', Path.DirectorySeparatorChar);
+
 			string searchPath = Path.Combine(_baseDirectory, path);
 			if (Directory.Exists(searchPath))
 			{
@@ -65,11 +67,18 @@ namespace F2F.Sandbox
 		/// <summary>
 		/// See <see cref="F2F.Sandbox.IFileLocator.CopyTo(string, string)"/>
 		/// </summary>
-		public void CopyTo(string fileName, string destinationPath)
+		public void CopyTo(string srcFile, string dstFile)
 		{
-			string sourcePath = MakeAbsolutePath(fileName);
+			string srcPath = MakeAbsolutePath(srcFile);
+			string dstPath = MakeAbsolutePath(dstFile);
+			var dstDirectory = Path.GetDirectoryName(dstPath);
 
-			File.Move(sourcePath, destinationPath);
+			if (!Directory.Exists(dstDirectory))
+			{
+				Directory.CreateDirectory(dstDirectory);
+			}
+
+			File.Copy(srcPath, dstPath);
 		}
 
 		private string MakeAbsolutePath(string fileName)
