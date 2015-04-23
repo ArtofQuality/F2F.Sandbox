@@ -22,7 +22,7 @@ namespace F2F.Sandbox.IntegrationTests
 			// Arrange
 			var fileLocator = Fixture.Create<IFileLocator>();
 			var sut = new FileSandbox(fileLocator);
-			
+
 			var tempDirectory = Path.GetTempPath();
 
 			// Act
@@ -46,7 +46,7 @@ namespace F2F.Sandbox.IntegrationTests
 			// Assert
 			path.Should().Be(Path.Combine(sut.Directory, fileName));
 		}
-		
+
 		[Fact]
 		public void ExistsFile_AfterCreateFile_ShouldReturnTrue()
 		{
@@ -122,7 +122,6 @@ namespace F2F.Sandbox.IntegrationTests
 			Directory.Exists(path).Should().BeTrue();
 		}
 
-
 		[Fact]
 		public void CreateFile_ShouldCreateFile()
 		{
@@ -152,14 +151,13 @@ namespace F2F.Sandbox.IntegrationTests
 			File.Exists(createdFilePath).Should().BeTrue();
 		}
 
-
 		[Fact]
 		public void GetTempFile_ShouldReturnRandomFilePath()
 		{
 			// Arrange
 			var fileLocator = Fixture.Create<IFileLocator>();
 			var sut = new FileSandbox(fileLocator);
-			
+
 			// Act
 			var tempFile = sut.GetTempFile();
 
@@ -167,7 +165,6 @@ namespace F2F.Sandbox.IntegrationTests
 			tempFile.Should().NotBeEmpty();
 			tempFile.StartsWith(sut.Directory);
 		}
-
 
 		[Fact]
 		public void GetTempFile_ShouldNotCreateTempFile()
@@ -192,7 +189,7 @@ namespace F2F.Sandbox.IntegrationTests
 			A.CallTo(() => fileLocator.Exists(fileName)).Returns(true);
 
 			var sut = new FileSandbox(fileLocator);
-			
+
 			// Act && Assert
 			sut.ProvideFile(fileName).ShouldBeEquivalentTo(sut.ResolvePath(fileName));
 		}
@@ -317,6 +314,21 @@ namespace F2F.Sandbox.IntegrationTests
 			Directory.Exists(Path.Combine(sut.Directory, directoryList[0])).Should().BeTrue();
 			Directory.Exists(Path.Combine(sut.Directory, directoryList[1])).Should().BeTrue();
 			Directory.Exists(Path.Combine(sut.Directory, directoryList[2])).Should().BeTrue();
+		}
+
+		[Fact]
+		public void Dispose_ShouldDeleteSanboxDirectory()
+		{
+			// Arrange
+			var fileLocator = Fixture.Create<IFileLocator>();
+			string sandboxDirectory;
+			using (var sut = new FileSandbox(fileLocator))
+			{
+				sandboxDirectory = sut.Directory;
+				Directory.Exists(sandboxDirectory).Should().BeTrue();
+			}
+
+			Directory.Exists(sandboxDirectory).Should().BeFalse();
 		}
 	}
 }
