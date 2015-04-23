@@ -16,7 +16,7 @@ If you debug your tests and stop the debugger in the middle of the test or your 
 *NuGet package*:
 * F2F.Sandbox
 
-The `FileSandbox`can be used standalone or you can use the [TestFixture](#TestFixture) for the [FileSandboxFeature](#FileSandboxFeature) for one of the currently supported unit testing frameworks.
+The `FileSandbox`can be used standalone or you can use the [TestFixture](https://github.com/ArtofQuality/F2F.Testing#TestFixture) for the [FileSandboxFeature](https://github.com/ArtofQuality/F2F.Testing#FileSandboxFeature) for one of the currently supported unit testing frameworks.
 
 ### EmptyFileLocator ###
 
