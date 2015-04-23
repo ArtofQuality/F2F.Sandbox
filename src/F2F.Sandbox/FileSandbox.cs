@@ -228,14 +228,7 @@ namespace F2F.Sandbox
 			var di = new System.IO.DirectoryInfo(_sandboxPath);
 			if (di.Exists)
 			{
-				try
-				{
-					di.Delete(true);
-				}
-				catch
-				{
-					// ignore
-				}
+				di.Delete(true);
 			}
 		}
 	}
