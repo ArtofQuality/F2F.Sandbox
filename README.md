@@ -9,14 +9,18 @@ A FileSandbox creates a temporary directory on your local environment for each t
 
 For a unit testing framework this means you can execute tests even in parallel because every test will create it's own temporary directory. After test execution the temporary directory will be automatically deleted.
 
+The `FileSandbox`can be used standalone or you can use the [TestFixture](https://github.com/ArtofQuality/F2F.Testing#testfixture) for the [FileSandboxFeature](https://github.com/ArtofQuality/F2F.Testing#filesandboxfeature) for one of the currently supported unit testing frameworks.
+
+---
+
 **Warning** - there is still one caveat here:
 
 If you debug your tests and stop the debugger in the middle of the test or your SUT doesn't close file handles, the cleanup code won't execute and you will have trash in your temp folder then. We already have some ideas on how to solve this as well, but it's not implemented yet.
 
-*NuGet package*:
-* F2F.Sandbox
+---
 
-The `FileSandbox`can be used standalone or you can use the [TestFixture](https://github.com/ArtofQuality/F2F.Testing#testfixture) for the [FileSandboxFeature](https://github.com/ArtofQuality/F2F.Testing#filesandboxfeature) for one of the currently supported unit testing frameworks.
+Builds are available via NuGet as prereleases:
+- [F2F.Sandbox](http://www.nuget.org/packages/F2F.Sandbox/)
 
 ### EmptyFileLocator ###
 
