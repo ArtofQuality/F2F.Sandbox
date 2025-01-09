@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using F2F.Sandbox;
-using FakeItEasy;
-using FluentAssertions;
-using Microsoft.Reactive.Testing;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoFakeItEasy;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Extensions;
+using FluentAssertions;
+using AutoFixture;
+using AutoFixture.AutoFakeItEasy;
 
 namespace F2F.Sandbox.IntegrationTests
 {
@@ -131,7 +126,7 @@ namespace F2F.Sandbox.IntegrationTests
 		}
 
 		[Theory]
-		[PropertyData("FileNames")]
+		[MemberData("FileNames")]
 		public void EnumeratePath_ShouldReturnExpectedFiles(string directoryName, string[] fileNames, string[] expectedFileNames)
 		{
 			// Arrange
@@ -172,7 +167,7 @@ namespace F2F.Sandbox.IntegrationTests
 			Action a = () => sut.CopyTo(src, dst);
 
 			// Act && Assert
-			a.ShouldThrow<IOException>();
+			a.Should().Throw<IOException>();
 		}
 
 		private void CreateFile(string fileName)

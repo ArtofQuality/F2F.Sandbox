@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AutoFixture;
+using AutoFixture.AutoFakeItEasy;
 using FakeItEasy;
 using FluentAssertions;
-using Microsoft.Reactive.Testing;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoFakeItEasy;
 using Xunit;
-using Xunit.Extensions;
+
 
 namespace F2F.Sandbox.IntegrationTests
 {
@@ -191,7 +190,7 @@ namespace F2F.Sandbox.IntegrationTests
 			var sut = new FileSandbox(fileLocator);
 
 			// Act && Assert
-			sut.ProvideFile(fileName).ShouldBeEquivalentTo(sut.ResolvePath(fileName));
+			sut.ProvideFile(fileName).Should().BeEquivalentTo(sut.ResolvePath(fileName));
 		}
 
 		[Fact]
@@ -208,7 +207,7 @@ namespace F2F.Sandbox.IntegrationTests
 			Action a = () => sut.ProvideFile(fileName);
 
 			// Assert
-			a.ShouldThrow<FileNotFoundException>();
+			a.Should().Throw<FileNotFoundException>();
 		}
 
 		[Theory]
@@ -247,7 +246,7 @@ namespace F2F.Sandbox.IntegrationTests
 			sut.ProvideDirectory(directoryName);
 
 			// Assert
-			A.CallTo(() => fileLocator.CopyTo(A<string>.Ignored, A<string>.Ignored)).MustHaveHappened(Repeated.Exactly.Times(3));
+			A.CallTo(() => fileLocator.CopyTo(A<string>.Ignored, A<string>.Ignored)).MustHaveHappened(3, Times.Exactly);
 		}
 
 		[Fact]
@@ -288,7 +287,7 @@ namespace F2F.Sandbox.IntegrationTests
 			Action a = () => sut.ProvideDirectory(directoryName);
 
 			// Assert
-			a.ShouldThrow<FileNotFoundException>();
+			a.Should().Throw<FileNotFoundException>();
 		}
 
 		[Fact]

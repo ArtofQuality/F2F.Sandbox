@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using F2F.Sandbox;
-using FakeItEasy;
-using FluentAssertions;
-using Microsoft.Reactive.Testing;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoFakeItEasy;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Extensions;
+using FluentAssertions;
+using AutoFixture;
+using AutoFixture.AutoFakeItEasy;
 
 namespace F2F.Sandbox.IntegrationTests
 {
@@ -105,7 +100,7 @@ namespace F2F.Sandbox.IntegrationTests
 		}
 
 		[Theory]
-		[PropertyData("FileNames")]
+		[MemberData("FileNames")]
 		public void EnumeratePath_ShouldReturnExpectedFiles(string path, string[] expectedFileNames)
 		{
 			var sut = new ResourceFileLocator(GetType());
